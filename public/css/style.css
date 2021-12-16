@@ -1,0 +1,89 @@
+html {
+    min-height: 100%;
+    position: relative;
+  }
+  body {
+      margin: 0;
+      margin-bottom: 40px;
+  }
+
+.footer{
+    border-radius: 0%;
+    background-color: brown;
+    color: white;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
+
+.navbar{
+    background-color: brown !important; 
+}
+
+.tituloVinos{
+    padding-top: 15px;
+    padding-bottom: 10px ;
+}
+
+.btnAgregar{
+  margin-left: 90%;
+  margin-bottom: 20px;
+  background-color: brown;
+  border-color: white;
+
+}
+
+.btnEditar{
+    background-color: rgb(221, 94, 94);
+    border-color: white;
+  }
+
+  .btnEliminar{
+    background-color: rgb(31, 10, 10);
+    border-color: white;
+  }
+
+  .modalHeadAgregar{
+    background-color: brown;
+    color: white;
+  }
+
+  .btnGuardarMod{
+    background-color: brown;
+    border-color: white;
+  }
+
+.cardsVinos {
+  padding-bottom: 10%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.cdheader {
+  margin-top: 10%;
+  background-color: brown;
+  color: white;
+  text-align: center;
+  font-weight:bold;
+}
+
+.cdbody {
+  color: white;
+  background-color: rgb(221, 94, 94);
+}
+
+.cdbody h5{
+  font-size: small;
+  font-family: sans-serif;
+}
+
+.imgvino{
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 3px;
+}
+.navtitulo{
+  font-weight: bold;
+}

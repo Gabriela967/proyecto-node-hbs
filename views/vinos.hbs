@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dein Wein</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/css/style.css" rel="stylesheet"  type="text/css" />
+</head>
+
+<body>
+
+    {{> navbar}}
+
+    <div class="container">
+        <h2 class="tituloVinos">Administrar catálogo de vinos:</h2>
+        <button class="btn btn-success btnAgregar" data-toggle="modal" data-target="#myModalAdd">Agregar</button>
+        <table class="table table-striped" id="myTable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Año</th>
+                    <th>Variedad</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each results}}
+                <tr>
+                    <td>{{vino_id}}</td>
+                    <td>{{nombre}}</td>
+                    <td>{{precio}}</td>
+                    <td>{{anio}}</td>
+                    <td>{{variedad}}</td>
+                    <td>
+                        <a href="javascript:void(0)" class="btn btn-info edit btnEditar" data-id="{{ vino_id }}" data-nombre="{{ nombre }}" data-precio="{{ precio }}" data-anio="{{ anio }}" data-variedad="{{ variedad }}" >Editar</a>
+                        <a href="javascript:void(0)" class="btn btn-danger delete btnEliminar" data-id="{{ vino_id }}" >Borrar</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    {{!-- Modal Añadir --}}
+    <form action="/save" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" aria-labelledby="exampleModalLabel" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modalHeadAgregar">
+                        <h5 class="modal-title" id="exampleModalLabel">Nuevo Vino</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">   
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input type="text" name="precio" class="form-control" placeholder="Precio" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input type="text" name="anio" class="form-control" placeholder="Año" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input type="text" name="variedad" class="form-control" placeholder="Variedad" required>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary btnGuardarMod">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+     {{!-- Modal Editar --}}
+    <form action="/update" method="post">
+            <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modalHeadAgregar">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar Vino</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                            <div class="form-group">  
+                                <input type="text" name="nombre" class="form-control producto_nombre" placeholder="Nombre" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input type="text" name="precio" class="form-control producto_precio" placeholder="Precio" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input type="text" name="anio" class="form-control producto_anio" placeholder="Año" required>
+                            </div>
+                            <div class="form-group mt-2">
+                                <input type="text" name="variedad" class="form-control producto_variedad" placeholder="Variedad" required>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" class="vino_id">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary btnGuardarMod">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+     {{!-- Modal Eliminar --}}
+
+    <form action="/delete" method="post" id="add-row-form">
+       <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header modalHeadAgregar">
+                        <h5 class="modal-title" id="exampleModalLabel">Borrar Vino</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <strong> ¿Está seguro que desea borrar este producto? </strong>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" class="form-control vino_id">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-success btnGuardarMod">Borrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+{{> footer}}
+
+<script src="/assets/js/jquery-3.3.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+
+<script>
+   $(document).ready(function(){
+       //Mostrar datos al modal para editar
+       $('#myTable').on('click', '.edit', function(){
+           let producto_id = $(this).data('id');
+           let producto_nombre = $(this).data('nombre');
+           let producto_precio = $(this).data('precio');
+           let producto_anio = $(this).data('anio');
+           let producto_variedad = $(this).data('variedad');
+           $('#editModal').modal('show');
+           $('.producto_nombre').val(producto_nombre);
+           $('.producto_precio').val(producto_precio);
+           $('.producto_anio').val(producto_anio);
+           $('.producto_variedad').val(producto_variedad);
+           $('.vino_id').val(producto_id);
+       })
+   }) 
+
+    //Modal DELETE
+       $('#myTable').on('click', '.delete', function(){
+           let producto_id = $(this).data('id');
+           $('#deleteModal').modal('show');
+           $('.vino_id').val(producto_id);
+       })
+
+</script>
+
+</body>
+</html>

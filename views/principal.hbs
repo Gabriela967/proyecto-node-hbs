@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/assets/css/style.css" rel="stylesheet"  type="text/css" />
+    <title>Catálogo de vinos</title>
+</head>
+<body>
+       {{> navbar}}
+
+         <div class="container">
+             <div class="cardsVinos"></div>
+          </div>
+
+       {{> footer}}
+    
+
+    <script>
+        $(document).ready(function () {
+            let req = new XMLHttpRequest()
+            req.open("GET", "http://localhost:5000/getVinos");
+            req.send();
+            req.onload = () => {
+                if (req.status === 200) {
+                    data = JSON.parse(req.response);
+                    let etiquetas = '';
+                    data.forEach(function (Data) {
+                        etiquetas =
+                            etiquetas +
+                            `<div class="card-vinos" style="width: 30%;">
+                                <div class="card-header cdheader">
+                                    ${Data.nombre}
+                                </div>
+                                <div class="card-body cdbody">
+                                    <h5> Cuesta $ ${Data.precio}</h5>
+                                    <hr>
+                                    <h5> Este vino es del año ${Data.anio}</h5>
+                                    <hr>
+                                    <h5> Pertenece a la variedad de vinos ${Data.variedad}</h5>
+                                </div>
+                            </div>`;
+                        const theCard = document.querySelector(".cardsVinos");
+                        theCard.innerHTML = etiquetas;
+                    });
+                }
+            }
+        });
+    </script>
+    
+</body>
+</html>
